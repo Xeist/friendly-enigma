@@ -1,15 +1,9 @@
 Algoritmo "RPG"
-// Disciplina   : [Linguagem e Lógica de Programação]
-// Professor   : Antonio Carlos Nicolodi
-//
-//
-//
-//
-//
-//
-//
-//
-//
+tipo consumivel = registro
+ nome: caractere
+ quantidade: inteiro
+ chave: caractere
+fimregistro
 procedimento hptest
 var
 inicio
@@ -119,9 +113,9 @@ inicio
          escreval ("[",pers [2,1],"      ", pers[2,2],"]")
          escreval ("[",pers [3,1],"      ", pers[3,2],"]")
          escreval ("")
-         escreval (qtd[1,1], item[1,1],"      ",qtd[1,2],item[1,2],"       ",qtd[1,3], item[1,3])
-         escreval (qtd[2,1], item[2,1],"      ",qtd[2,2],item[2,2],"       ",qtd[2,3], item[2,3])
-         escreval (qtd[3,1], item[3,1],"      ",qtd[3,2],item[3,2],"       ",qtd[3,3], item[3,3])
+         escreval (qtd[1,1]," ", item[1,1],"      ",qtd[1,2]," ",item[1,2],"       ",qtd[1,3]," ", item[1,3])
+         escreval (qtd[2,1]," ", item[2,1],"      ",qtd[2,2]," ",item[2,2],"       ",qtd[2,3]," ", item[2,3])
+         escreval (qtd[3,1]," ", item[3,1],"      ",qtd[3,2]," ",item[3,2],"       ",qtd[3,3]," ", item[3,3])
          escreval ("Página 2")
          escreval ("Digite o número da página desejada, ou 3 para sair.")
          escreval ("Digitar outro número causará erro")
@@ -135,12 +129,12 @@ var
 inicio
    hora:= hora+1
    se (noite = falso) entao
-      se (hora = 51) entao
+      se (hora >= 51) entao
          noite := verdadeiro
          hora := 0
       fimse
    senao
-      se (hora := 51) entao
+      se (hora >= 51) entao
          hora := 0
          noite := falso
       fimse
@@ -179,9 +173,9 @@ var
 inicio
    limpatela
    escreval ("INVENTÁRIO:")
-   escreval (qtd[1,1], item[1,1],"      ",qtd[1,2],item[1,2],"       ",qtd[1,3], item[1,3])
-   escreval (qtd[2,1], item[2,1],"      ",qtd[2,2],item[2,2],"       ",qtd[2,3], item[2,3])
-   escreval (qtd[3,1], item[3,1],"      ",qtd[3,2],item[3,2],"       ",qtd[3,3], item[3,3])
+   escreval (qtd[1,1]," ", item[1,1],"      ",qtd[1,2]," ",item[1,2],"       ",qtd[1,3]," ", item[1,3])
+   escreval (qtd[2,1]," ", item[2,1],"      ",qtd[2,2]," ",item[2,2],"       ",qtd[2,3]," ", item[2,3])
+   escreval (qtd[3,1]," ", item[3,1],"      ",qtd[3,2]," ",item[3,2],"       ",qtd[3,3]," ", item[3,3])
    leia (act)
    para j de 1 ate 3 faça
 
@@ -201,8 +195,10 @@ inicio
                se (qtd[j,k] = 0) entao
                   escreval ("Você não possui mais do item: ",item[j,k])
                   item[j,k]:= ""
+                  leia (nulo)
                senao
-                  escreval ("Você possui",qtd[j,k]," ",item[j,k],"restantes.")
+                  escreval ("Você possui",qtd[j,k]," ",item[j,k]," restantes.")
+                  leia (nulo)
                fimse
             fimse
          fimse
@@ -215,8 +211,8 @@ Var
 
    pers: vetor [1..3, 1..2] de caractere
    class: vetor [1..3, 1..2] de inteiro
-   item: vetor [1..3, 1..3] de caractere
-   qtd: vetor [1..3,1..3] de inteiro
+   item: vetor [1..9] de consumivel
+
    dflor, mcave, mcavef, drio, fonte, nflor, nrio: vetor [1..6] de caractere
    direc: vetor [1..8] de inteiro
    nome, tutorial, caminho, act, local, achado, inim, nulo: caractere
@@ -293,7 +289,7 @@ Inicio
    fimse
    limpatela
 
-   escreval ("Bem vindo à Spirit Song, ",nome)
+   escreval ("Bem vindo à Spirit Song, *",nome,"*")
    leia (nulo)
    limpatela
    escreval ("Você acorda em um local desconhecido, com dor de cabeça")
@@ -301,10 +297,11 @@ Inicio
    escreval ("Um rio em meio a uma floresta")
    escreval ("Uma gruta com um brilho sinistro ao fundo")
    escreval ("Uma cidade ao longe.")
-   leia (tutorial)
+   leia (nulo)
    enquanto (end = falso) faça
       repita
          limpatela
+         horario
          escreval ("Hora:",hora)
          escreval ("Onde você vai?")
          escreval ("1. Floresta")
@@ -357,7 +354,7 @@ Inicio
                         leia (nulo)
                         fight:= verdadeiro
                         inim:= dflor[i]
-                        hpinim:= ((i+1) * i) + 3
+                        hpinim:= ((i+1) * 3) + 3
                         hpinimm:= hpinim
                         enquanto (fight = verdadeiro) faça
                            limpatela
@@ -387,20 +384,20 @@ Inicio
 
                      escolha i
                      caso 1
-                        item[3,1]:= "Maçã"
-                        qtd[3,1]:= qtd[3,1] + 1
+                        item[3,1].nome:= "maça"
+                        item[3,1].quantidade:= item[3,1].quantidade + 1
                         escreval ("Você encontrou 'Maçã'.")
                         leia (nulo)
                         hora:= hora + 1
                      caso 2
-                        item[3,2]:= "Cogumelo"
-                        qtd[3,2]:= qtd[3,2] + 1
+                        item[3,2].nome:= "cogumelo"
+                        item[3,2].quantidade:= item[3,2].quantidade + 1
                         escreval ("Você encontrou 'Cogumelos'")
                         leia (nulo)
                         hora:= hora + 1
                      caso 3
-                        item[3,3]:= "Pera"
-                        qtd[3,3]:= qtd[3,3] + 1
+                        item[3,3].nome:= "pera"
+                        item[3,3].quantidade:= item[3,3].quantidade + 1
                         escreval ("Você encontrou 'Pera'")
                         leia (nulo)
                         hora:= hora + 1
@@ -478,7 +475,8 @@ Inicio
                            escreval ("Você encontrou ",nflor[i])
                            fight:= verdadeiro
                            inim:= nflor[i]
-                           hpinim, hpinimm:= ((i+1) * i) + 3
+                           hpinimm:= ((i+1) * 3) + 8
+                           hpinim:= hpinimm
                            enquanto (fight = verdadeiro) faça
                               escreval ("HP Atual:",hpa," /",hpm)
                               escreval ("HP Inimigo:",hpinim," /",hpinimm)
@@ -501,6 +499,41 @@ Inicio
                         fimse
                      fimse
                   caso "2"
+                     i:= randi (4) + 1
+
+                     escolha i
+                     caso 1
+                        item[2,1]:= "noxipomum"
+                        qtd[3,1]:= qtd[3,1] + 1
+                        escreval ("Você encontrou uma 'noxipomum'")
+                        leia (nulo)
+                        hora:= hora + 1
+                     caso 2
+                        item[2,2]:= "cogumelo branco"
+                        qtd[3,2]:= qtd[3,2] + 1
+                        escreval ("Você encontrou 'cogumelo branco'")
+                        leia (nulo)
+                        hora:= hora + 1
+                     caso 3
+                        item[2,3]:= "limao"
+                        qtd[3,3]:= qtd[3,3] + 1
+                        escreval ("Você encontrou 'limão translúcido'")
+                        leia (nulo)
+                        hora:= hora + 1
+                     caso 4
+                        se (class [1,1] < 1) entao
+                           escreval ("Você encontrou um galho pontudo")
+                           pers[1,1]:= "galho pontudo"
+                           class[1,1]:= 1
+                           leia (nulo)
+                           hora:= hora + 1
+                        senao
+                           escreval ("*crek*")
+                           escreval ("Você pisou em um galho")
+                           hora:= hora + 1
+                           leia (nulo)
+                        fimse
+                     fimescolha
                   caso "3"
                      escreval ("Você permanece em silêncio.")
                      escreval ("Assobios e uivos ecoam pela floresta")
@@ -534,12 +567,30 @@ Inicio
                            repita
                            ate (perseg := falso)
                         caso "2"
+                           escreval ("Você ouve o som de algo se desfazendo às suas costas")
+                           escreval ("você se vira, mas não vê nada, apenas segue seu caminho.")
+                         leia (nulo)
                         fimescolha
                      senao
-                        escreval ("Você vê um feixe de luz entre as árvores")
-                        escreval ("você corre atrás mas não encontra nada.")
+                        se (i = 18) ou (i = 20) entao
+                           escreval ("Você vê um feixe de luz entre as árvores")
+                           escreval ("você corre atrás mas não encontra nada.")
+                        leia (nulo)
+                        senao
+                        escreval ("Você anda pela floresta, até perceber que está andando em círculos")
+                        escreval ("você para e descansa no mesmo local de partida.")
+                        hpa:= hpa+1
+                        escreval (hpa-1," >>>",hpa)
+                        leia (nulo)
+
+                        fimse
                      fimse
                   caso "5"
+                  escreval ("Você tenta andar para fora mas parece que a floresta te puxa para trás")
+                  escreval ("assustado, você corre sem olhar para trás.")
+                  local:= ""
+                  leia (nulo)
+                  hora:= hora + 1
                   caso "0"
                      profile
                   fimescolha
@@ -656,7 +707,7 @@ Inicio
                      fimenquanto
                   fimse
                caso "2"
-                  se (pers[2,1] < 1) entao
+                  se (class[2,1] < 1) entao
                      escreval ("É necessário uma picareta.")
                   senao
 
@@ -690,6 +741,7 @@ Inicio
                caso "1"
                   escreval ("Seja bem-vindo(a) à loja de armas de Arcadia!")
                   escreval ("Aqui você pode comprar sua primeira e demais armas iniciais")
+                  
                caso "2"
                   escreval ("Seja bem-vindo(a) à loja de armaduras de Arcadia!")
                   escreval ("Aqui você pode comprar sua primeira e demais armaduras iniciais")
@@ -716,5 +768,4 @@ Inicio
          act := "0"
       ate (end = verdadeiro)
    fimenquanto
-fimenquanto
 Fimalgoritmo
