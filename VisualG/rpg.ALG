@@ -4,6 +4,11 @@ tipo consumivel = registro
  quantidade: inteiro
  chave: caractere
 fimregistro
+equipamento = registro
+poder: inteiro
+nome: caractere
+
+fimregistro
 procedimento hptest
 var
 inicio
